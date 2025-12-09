@@ -1,0 +1,4 @@
+*Yêu cầu:
++ Code đúng yêu cầu của thầy, trọng số điểm bài tập cao nên làm cho kĩ.
++ Để tất cả source code các files liên quan vào đúng thư mục bài tập của mình.
++ Chụp hình kết quả sau khi chạy source code và đặt tên file "result.png" vào đúng thư mục source code.
