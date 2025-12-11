@@ -8,13 +8,7 @@ Bài tập yêu cầu **so sánh kết quả** giữa **mô hình Logistic Regre
 
 **Yêu cầu:**
 
--   Sử dụng **cùng dataset** như Question A
--   Huấn luyện mô hình bằng **sklearn.linear_model.LogisticRegression**
--   **So sánh** kết quả giữa 2 mô hình:
-    -   Tham số học được (m/coef, b/intercept)
-    -   Xác suất dự đoán cho 2.8 giờ học
-    -   Kết luận đậu/rớt
--   **Visualization:** Tạo biểu đồ so sánh trực quan
+Bài tập yêu cầu sử dụng cùng dataset như Question A, sau đó huấn luyện mô hình bằng **sklearn.linear_model.LogisticRegression**. Tiếp theo, thực hiện so sánh kết quả giữa 2 mô hình bao gồm tham số học được (m/coef, b/intercept), xác suất dự đoán cho 2.8 giờ học, và kết luận đậu/rớt. Cuối cùng, tạo biểu đồ so sánh trực quan (**Visualization**).
 
 ---
 
@@ -46,8 +40,7 @@ from logistic_regression_utils import (
 )
 ```
 
--   Import các hàm từ Question A để sử dụng lại
--   **Tái sử dụng code:** Không viết lại logic training
+Đoạn code này import các hàm đã được xây dựng trong Question A để sử dụng lại. Việc tái sử dụng code như vậy giúp tránh viết lại toàn bộ logic training, vừa tiết kiệm thời gian vừa đảm bảo tính nhất quán.
 
 #### **Import sklearn**
 
@@ -55,12 +48,7 @@ from logistic_regression_utils import (
 from sklearn.linear_model import LogisticRegression
 ```
 
--   **sklearn:** Thư viện Machine Learning phổ biến nhất Python
--   **LogisticRegression:** Class implement Logistic Regression chuẩn, tối ưu
--   **Đặc điểm:**
-    -   Highly optimized (C/C++ backend)
-    -   Nhiều thuật toán tối ưu: LBFGS, SAG, SAGA, ...
-    -   Được test kỹ lưỡng, đáng tin cậy
+Thư viện sklearn (scikit-learn) là thư viện Machine Learning phổ biến nhất trong Python, được phát triển và tối ưu hóa rất kỹ lưỡng. Class `LogisticRegression` trong module `linear_model` cung cấp một implementation chuẩn và hiệu quả của thuật toán Logistic Regression. Điểm nổi bật của sklearn là highly optimized với backend được viết bằng C/C++, hỗ trợ nhiều thuật toán tối ưu khác nhau như LBFGS, SAG, SAGA, và được kiểm thử kỹ lưỡng nên rất đáng tin cậy trong ứng dụng thực tế.
 
 #### **Import numpy và matplotlib**
 
@@ -69,8 +57,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 ```
 
--   **numpy:** Sklearn yêu cầu input dạng numpy array
--   **matplotlib:** Để vẽ biểu đồ so sánh
+Hai thư viện này phục vụ các mục đích khác nhau trong quá trình so sánh. Thư viện numpy được import vì sklearn yêu cầu dữ liệu đầu vào phải ở dạng numpy array thay vì Python list thông thường. Trong khi đó, matplotlib.pyplot được sử dụng để vẽ các biểu đồ so sánh giữa hai mô hình một cách trực quan.
 
 ---
 
@@ -96,19 +83,15 @@ predicted_score_manual = get_prediction(m, b, hours_input)
 
 #### **Training**
 
--   Sử dụng **lại code từ Question A**
--   Chạy đúng 10 iterations như yêu cầu đề bài
--   Tham số khởi tạo: m=1.0, b=-1.0, learning_rate=1.0
+Phần này sử dụng lại toàn bộ code đã được viết trong Question A, chạy đúng 10 iterations theo yêu cầu của đề bài. Việc tái sử dụng code giúp đảm bảo tính nhất quán khi so sánh giữa hai mô hình.
 
 #### **Prediction**
 
--   Dự đoán cho 2.8 giờ
--   Lưu vào `predicted_score_manual` để so sánh sau
+Sau khi training xong, mô hình được sử dụng để dự đoán cho trường hợp sinh viên học 2.8 giờ. Kết quả dự đoán được lưu vào biến `predicted_score_manual` để chuẩn bị cho phần so sánh với sklearn sau này.
 
 **Tại sao gọi là "manual"?**
 
--   Để phân biệt với sklearn (automated/optimized)
--   "Manual" = tự code từ đầu, từng bước
+Thuật ngữ "manual" được sử dụng để phân biệt với sklearn (automated/optimized). Từ "manual" ở đây nghĩa là tự code từ đầu, thực hiện từng bước một cách rõ ràng, thay vì dùng các hàm có sẵn đã được tối ưu hóa cao.
 
 ---
 
@@ -137,8 +120,7 @@ else:
 
 #### **Cấu trúc output**
 
--   **Header lớn (=):** Tiêu đề bài toán
--   **Header nhỏ (-):** Tiêu đề từng phần
+Phần in kết quả được tổ chức theo cấp bậc rõ ràng. Header lớn với dấu bằng (=) được dùng cho tiêu đề bài toán, trong khi header nhỏ với dấu gạch ngang (-) đánh dấu tiêu đề từng phần cụ thể.
 
 #### **In tham số**
 
@@ -147,8 +129,7 @@ print(f"  - Hệ số góc (m): {m:.6f}")
 print(f"  - Hệ số chặn (b): {b:.6f}")
 ```
 
--   `.6f`: 6 chữ số thập phân (độ chính xác cao)
--   Thụt đầu dòng ` -` để dễ đọc
+Các tham số được in với format `.6f` để hiển thị 6 chữ số thập phân, đảm bảo độ chính xác cao. Việc thụt đầu dòng với ký tự ` -` giúp cấu trúc output dễ đọc và thẩm mỹ hơn.
 
 #### **In kết quả dự đoán**
 
@@ -156,8 +137,7 @@ print(f"  - Hệ số chặn (b): {b:.6f}")
 print(f"  - Xác suất đậu: {predicted_score_manual:.6f} ({predicted_score_manual*100:.2f}%)")
 ```
 
--   In cả dạng thập phân và phần trăm
--   Ví dụ: `0.785432 (78.54%)`
+Dòng code này in cả dạng thập phân và phần trăm, ví dụ `0.785432 (78.54%)`.
 
 #### **Kết luận**
 
@@ -168,7 +148,7 @@ else:
     print(f"  - Kết luận: RỚT")
 ```
 
--   Logic đơn giản: ≥ 0.5 → ĐẬU
+Logic đơn giản: nếu xác suất ≥ 0.5 thì kết luận ĐẬU.
 
 ---
 
@@ -192,19 +172,15 @@ X = np.array([[row[0]] for row in DATASET])
 
 **Phân tích:**
 
--   `row[0]`: Lấy cột đầu (Hours)
--   `[[row[0]]]`: **Chú ý 2 cặp ngoặc vuông!**
-    -   Ngoặc trong `[row[0]]`: Tạo list 1 phần tử
-    -   Ngoặc ngoài `[...]`: List comprehension
+Biểu thức này sử dụng list comprehension để trích xuất dữ liệu. `row[0]` lấy cột đầu tiên (Hours) từ mỗi dòng dữ liệu. Điểm quan trọng cần chú ý là có hai cặp ngoặc vuông: ngoặc trong `[row[0]]` tạo một list chứa 1 phần tử, còn ngoặc ngoài `[...]` là cú pháp của list comprehension.
 
 **Tại sao cần 2 cặp ngoặc?**
 
-Sklearn yêu cầu X phải là **ma trận 2D** (n_samples × n_features):
-
--   `n_samples`: Số mẫu (8 điểm)
--   `n_features`: Số features (1 feature = hours)
+Sklearn yêu cầu X phải là ma trận 2D với kích thước (n_samples × n_features), trong đó `n_samples` là số mẫu (8 điểm) và `n_features` là số đặc trưng (1 feature = hours).
 
 **Kết quả:**
+
+Ma trận kết quả có dạng:
 
 ```python
 X = [[0.5],
@@ -220,11 +196,7 @@ X = [[0.5],
 
 **Nếu chỉ dùng 1 cặp ngoặc:**
 
-```python
-X = np.array([row[0] for row in DATASET])
-# Kết quả: [0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0]
-# Shape: (8,) - 1D array → sklearn báo lỗi!
-```
+Nếu viết `X = np.array([row[0] for row in DATASET])`, kết quả sẽ là `[0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0]` với shape (8,) - một 1D array. Điều này sẽ khiến sklearn báo lỗi vì không đúng format yêu cầu.
 
 ##### **Labels (y_train)**
 
@@ -234,13 +206,11 @@ y_train = np.array([row[1] for row in DATASET])
 
 **Phân tích:**
 
--   `row[1]`: Lấy cột thứ 2 (Pass)
--   Chỉ cần 1D array: `[0, 0, 0, 0, 1, 1, 1, 1]`
--   Shape: (8,) - 8 phần tử
+Biểu thức `row[1]` lấy cột thứ hai (Pass) từ mỗi dòng dữ liệu. Khác với X, y chỉ cần là một 1D array với nội dung `[0, 0, 0, 0, 1, 1, 1, 1]`, có shape (8,) tương ứng với 8 phần tử.
 
 **Lưu ý naming:**
 
--   Đặt tên `y_train` thay vì `y` để tránh nhầm lẫn với biến `y` từ phần A
+Biến được đặt tên là `y_train` thay vì `y` để tránh nhầm lẫn với biến `y` đã được sử dụng ở phần A, giúp code rõ ràng và dễ bảo trì hơn.
 
 ---
 
@@ -293,9 +263,7 @@ model = LogisticRegression(max_iter=10, solver='lbfgs', random_state=42)
 
 **Tại sao sklearn cần random_state?**
 
--   Một số solver khởi tạo tham số ngẫu nhiên
--   Shuffling data khi dùng batch methods
--   Đảm bảo reproducibility cho scientific research
+Sklearn cần random_state vì một số solver khởi tạo tham số ngẫu nhiên. Ngoài ra, có thể xảo trộn dữ liệu khi dùng batch methods. Việc thiết lập random_state đảm bảo reproducibility cho nghiên cứu khoa học.
 
 ##### **Fit model**
 
@@ -305,23 +273,11 @@ model.fit(X, y_train)
 
 **Giải thích:**
 
--   **`fit(X, y)`:** Hàm huấn luyện mô hình
--   **Input:**
-    -   `X`: Features (8×1 matrix)
-    -   `y_train`: Labels (8 elements)
--   **Process:**
-    -   Chạy thuật toán LBFGS
-    -   Tối ưu hóa tham số (coef, intercept)
-    -   Tối đa 10 iterations
--   **Output:**
-    -   `model` được cập nhật (in-place)
-    -   Tham số được lưu trong `model.coef_` và `model.intercept_`
+Hàm **`fit(X, y)`** là hàm huấn luyện mô hình. **Input** gồm `X` là Features (ma trận 8×1) và `y_train` là Labels (8 phần tử). **Process** bao gồm chạy thuật toán LBFGS, tối ưu hóa tham số (coef, intercept), với tối đa 10 iterations. **Output** là `model` được cập nhật (in-place), với tham số được lưu trong `model.coef_` và `model.intercept_`.
 
 **Lưu ý:**
 
--   Sklearn tự động normalize/standardize nếu cần
--   Tự động handle convergence
--   Tự động điều chỉnh learning rate (adaptive)
+Sklearn tự động normalize/standardize nếu cần, tự động xử lý convergence, và tự động điều chỉnh learning rate (adaptive).
 
 ---
 
@@ -342,9 +298,7 @@ predicted_class_sklearn = model.predict(X_test)[0]
 X_test = np.array([[hours_input]])
 ```
 
--   `hours_input = 2.8`
--   `[[2.8]]`: Ma trận 2D (1×1) - 1 sample, 1 feature
--   **Phải cùng format** với X training (2D)
+Biến `hours_input` có giá trị 2.8, do đó `[[2.8]]` tạo ma trận 2D với kích thước 1×1 (1 sample, 1 feature). Điểm quan trọng là phải cùng format với X training (2D).
 
 ##### **Dự đoán xác suất**
 
@@ -431,32 +385,25 @@ else:
 
 ##### **Truy cập tham số sklearn**
 
-**Hệ số góc:**
+Để lấy **hệ số góc:**
 
 ```python
 model.coef_[0][0]
 ```
 
--   **`model.coef_`:** Ma trận hệ số (n_classes-1, n_features)
-    -   Logistic Regression binary: (1, 1)
-    -   `[[2.345]]` (1 class, 1 feature)
--   **`[0]`:** Lấy hàng đầu: `[2.345]`
--   **`[0]`:** Lấy cột đầu: `2.345`
+Thuộc tính **`model.coef_`** là ma trận hệ số với kích thước (n_classes-1, n_features). Đối với Logistic Regression binary, kích thước là (1, 1) như `[[2.345]]` (1 class, 1 feature). Đề tác `[0]` lấy hàng đầu cho kết quả `[2.345]`, rồi `[0]` tiếp theo lấy cột đầu cho kết quả cuối cùng `2.345`.
 
-**Hệ số chặn:**
+Để lấy **hệ số chặn:**
 
 ```python
 model.intercept_[0]
 ```
 
--   **`model.intercept_`:** Array hệ số chặn (n_classes-1,)
-    -   `[-4.567]` (1 phần tử)
--   **`[0]`:** Lấy phần tử đầu: `-4.567`
+Thuộc tính **`model.intercept_`** là array hệ số chặn với kích thước (n_classes-1,) như `[-4.567]` (1 phần tử). Đề tác `[0]` lấy phần tử đầu cho kết quả `-4.567`.
 
 ##### **In kết quả**
 
--   Format giống phần A để dễ so sánh
--   Sử dụng `.6f` cho độ chính xác cao
+Format output được thiết kế giống phần A để dễ so sánh, sử dụng `.6f` cho độ chính xác cao.
 
 ---
 
@@ -501,9 +448,7 @@ else:
 print(f"  - Chênh lệch:           {abs(m - model.coef_[0][0]):.6f}")
 ```
 
--   Tính **giá trị tuyệt đối** của sự chênh lệch
--   `abs()`: Luôn dương, dễ so sánh
--   Kỳ vọng: Chênh lệch nhỏ (< 0.1)
+Đoạn code này tính **giá trị tuyệt đối** của sự chênh lệch. Hàm `abs()` luôn trả về số dương nên dễ so sánh, với kỳ vọng chênh lệch nhỏ hơn 0.1.
 
 ##### **2. Hệ số chặn (b vs intercept)**
 
@@ -511,8 +456,7 @@ print(f"  - Chênh lệch:           {abs(m - model.coef_[0][0]):.6f}")
 print(f"  - Chênh lệch:           {abs(b - model.intercept_[0]):.6f}")
 ```
 
--   Tương tự với m
--   Kỳ vọng: Chênh lệch nhỏ
+Cách tính tương tự với m, cũng kỳ vọng chênh lệch nhỏ.
 
 ##### **3. Xác suất dự đoán**
 
@@ -520,9 +464,7 @@ print(f"  - Chênh lệch:           {abs(b - model.intercept_[0]):.6f}")
 print(f"  - Chênh lệch:           {abs(predicted_score_manual - predicted_proba_sklearn):.6f}")
 ```
 
--   So sánh output cuối cùng
--   **Quan trọng nhất:** Kết quả dự đoán có đúng không?
--   Kỳ vọng: Chênh lệch rất nhỏ (< 0.01)
+Đây là bước so sánh output cuối cùng, và cũng là **quan trọng nhất** để kiểm tra kết quả dự đoán có đúng không. Kỳ vọng chênh lệch rất nhỏ, thường nhỏ hơn 0.01.
 
 ##### **4. Kết luận cuối cùng**
 
@@ -531,8 +473,7 @@ result_manual = "ĐẬU" if predicted_score_manual >= 0.5 else "RỚT"
 result_sklearn = "ĐẬU" if predicted_class_sklearn == 1 else "RỚT"
 ```
 
--   Chuyển số thành text để dễ đọc
--   So sánh string để kiểm tra consistency
+Đoạn code này chuyển số thành text để dễ đọc, sau đó so sánh string để kiểm tra consistency.
 
 ```python
 if result_manual == result_sklearn:
@@ -541,8 +482,7 @@ else:
     print(f"  - Kết quả: KHÁC NHAU ✗")
 ```
 
--   **Nếu giống:** ✓ Implementation đúng!
--   **Nếu khác:** ✗ Có vấn đề cần check
+Nếu kết quả giống nhau (✓), chứng tỏ implementation đúng! Ngược lại nếu khác nhau (✗), có vấn đề cần kiểm tra lại.
 
 ---
 
@@ -565,49 +505,39 @@ print("="*60 + "\n")
 
 ##### **1. Số lần lặp khác nhau**
 
--   **Manual:** Đúng 10 iterations, không thêm không bớt
--   **Sklearn:** Có thể hội tụ sớm hơn nếu đạt tolerance
-    -   Mặc định `tol=1e-4`
-    -   Dừng khi gradient < tolerance
-    -   Có thể dừng sau 5-8 iterations
+Mô hình **Manual** chạy đúng 10 iterations, không thêm không bớt. Trong khi đó, **Sklearn** có thể hội tụ sớm hơn nếu đạt tolerance. Với mặc định `tol=1e-4`, thuật toán dừng khi gradient < tolerance, do đó có thể dừng sau 5-8 iterations.
 
 ##### **2. Phương pháp tối ưu khác nhau**
 
 **Manual - Gradient Descent:**
 
--   Công thức: $w_{new} = w_{old} - \alpha \nabla J$
--   **Gradient bậc 1** (first-order derivative)
--   Đơn giản, dễ hiểu
--   Tốc độ hội tụ: **tuyến tính** (linear)
+Sử dụng công thức:
+
+$$w_{new} = w_{old} - \alpha \nabla J$$
+
+Đây là **Gradient bậc 1** (first-order derivative), đơn giản và dễ hiểu nhưng tốc độ hội tụ là **tuyến tính** (linear).
 
 **Sklearn - LBFGS:**
 
--   **Quasi-Newton method**
--   Sử dụng **gradient bậc 2** (approximated Hessian)
--   Phức tạp hơn nhưng **hiệu quả hơn**
--   Tốc độ hội tụ: **siêu tuyến tính** (superlinear)
+Đây là **Quasi-Newton method** sử dụng **gradient bậc 2** (approximated Hessian). Phương pháp này phức tạp hơn nhưng **hiệu quả hơn**, với tốc độ hội tụ là **siêu tuyến tính** (superlinear).
 
 **Ví dụ:**
 
--   GD: 10 steps → Cost giảm 60%
--   LBFGS: 10 steps → Cost giảm 95%
+Với GD, 10 steps có thể chỉ giảm Cost 60%, trong khi LBFGS với 10 steps có thể giảm Cost đến 95%.
 
 ##### **3. Điều kiện dừng và khởi tạo**
 
 **Khởi tạo:**
 
--   Manual: m=1.0, b=-1.0 (do mình chọn)
--   Sklearn: w=0, b=0 (mặc định) hoặc random
+Manual sử dụng m=1.0, b=-1.0 (do mình chọn), trong khi Sklearn sử dụng w=0, b=0 (mặc định) hoặc random.
 
 **Điều kiện dừng:**
 
--   Manual: Chạy đúng 10 iterations, không check convergence
--   Sklearn: Dừng khi `||gradient|| < tol` hoặc `max_iter`
+Manual chạy đúng 10 iterations mà không kiểm tra convergence, còn Sklearn dừng khi `||gradient|| < tol` hoặc đạt `max_iter`.
 
 **Learning rate:**
 
--   Manual: Cố định (1.0)
--   Sklearn: Adaptive (LBFGS tự điều chỉnh)
+Manual dùng learning rate cố định (1.0), nhưng Sklearn sử dụng Adaptive learning rate (LBFGS tự điều chỉnh).
 
 ---
 
@@ -624,8 +554,7 @@ fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 5))
 
 **Giải thích:**
 
--   Tạo 2 biểu đồ cạnh nhau
--   Kích thước lớn (14×5) để rõ ràng
+Lệnh này tạo 2 biểu đồ cạnh nhau với kích thước lớn (14×5) để kết quả rõ ràng.
 
 ---
 
@@ -646,8 +575,7 @@ y_sklearn = [model.predict_proba([[x_i]])[0][1] for x_i in x_plot]
 x_plot = np.linspace(0, 4.5, 100)
 ```
 
--   100 điểm từ 0 đến 4.5
--   Đủ mịn để vẽ đường cong mượt
+Hàm này tạo 100 điểm từ 0 đến 4.5, đủ mịn để vẽ đường cong mượt mài.
 
 ##### **Tính y cho manual model**
 
@@ -655,9 +583,7 @@ x_plot = np.linspace(0, 4.5, 100)
 y_manual = [get_prediction(m, b, x_i) for x_i in x_plot]
 ```
 
--   List comprehension: duyệt 100 điểm
--   Gọi hàm `get_prediction` từ module tự xây dựng
--   Kết quả: 100 giá trị xác suất
+Sử dụng list comprehension để duyệt 100 điểm, gọi hàm `get_prediction` từ module tự xây dựng. Kết quả là 100 giá trị xác suất.
 
 ##### **Tính y cho sklearn**
 
@@ -665,9 +591,7 @@ y_manual = [get_prediction(m, b, x_i) for x_i in x_plot]
 y_sklearn = [model.predict_proba([[x_i]])[0][1] for x_i in x_plot]
 ```
 
--   `[[x_i]]`: Reshape thành 2D array
--   `predict_proba(...)`: Dự đoán xác suất
--   `[0][1]`: Lấy xác suất class 1
+Biếu thức `[[x_i]]` reshape thành 2D array, sau đó `predict_proba(...)` dự đoán xác suất, rồi `[0][1]` lấy xác suất class 1.
 
 **Lưu ý:** Cách tính hơi "cồng kềnh" với list comprehension, có thể optimize:
 
@@ -692,22 +616,7 @@ ax1.scatter(x_data, y_data, c=['red' if y==0 else 'green' for y in y_data],
 
 **Giải thích:**
 
--   **`c=[...]`:** Màu theo nhãn
-
-    -   `'red' if y==0`: Rớt → đỏ
-    -   `'green'`: Đậu → xanh
-    -   List comprehension tạo list màu: `['red', 'red', ..., 'green', 'green']`
-
--   **`s=100`:** Kích thước điểm = 100
-
--   **`alpha=0.6`:** Độ trong suốt 60% (hơi mờ)
-
--   **`edgecolors='black'`:** Viền đen cho rõ
-
--   **`linewidth=1.5`:** Độ dày viền
-
--   **`zorder=3`:** Layer cao (vẽ trên cùng)
-    -   Đảm bảo điểm không bị đường che
+Tham số **`c=[...]`** thiết lập màu theo nhãn. Biểu thức `'red' if y==0` chọn màu đỏ cho Rớt và `'green'` cho Đậu. List comprehension tạo list màu như `['red', 'red', ..., 'green', 'green']`. Tham số **`s=100`** đặt kích thước điểm bằng 100. Tham số **`alpha=0.6`** thiết lập độ trong suốt 60% (hơi mờ). Tham số **`edgecolors='black'`** thêm viền đen cho rõ ràng, với **`linewidth=1.5`** đặt độ dày viền. Tham số **`zorder=3`** đặt layer cao (vẽ trên cùng), đảm bảo điểm không bị đường che.
 
 ---
 
@@ -721,16 +630,7 @@ ax1.plot(x_plot, y_sklearn, 'r--', linewidth=2, label='Sklearn')
 
 **Giải thích:**
 
--   **Manual:**
-
-    -   `'b-'`: Màu xanh (blue), đường liền (solid)
-    -   `linewidth=2`: Độ dày 2
-
--   **Sklearn:**
-    -   `'r--'`: Màu đỏ (red), đường gạch (dashed)
-    -   Dễ phân biệt với manual
-
-**Kỳ vọng:** 2 đường rất gần nhau, gần như trùng
+Đường **Manual** sử dụng `'b-'` (màu xanh blue, đường liền solid) với `linewidth=2` (independentộ dày 2). Đường **Sklearn** sử dụng `'r--'` (màu đỏ red, đường gạch dashed) để dễ phân biệt với manual. Kỳ vọng là 2 đường rất gần nhau, gần như trùng.
 
 ---
 
@@ -743,10 +643,7 @@ ax1.axhline(y=0.5, color='gray', linestyle=':', linewidth=1, label='Ngưỡng 0.
 
 **Giải thích:**
 
--   `axhline`: Đường ngang
--   `y=0.5`: Tại y = 0.5
--   `linestyle=':'`: Đường chấm (dotted)
--   **Ý nghĩa:** Decision boundary threshold
+Hàm `axhline` vẽ đường ngang tại `y=0.5`, sử dụng `linestyle=':'` cho đường chấm (dotted). Ý nghĩa của đường này là decision boundary threshold.
 
 ---
 
@@ -764,13 +661,7 @@ ax1.scatter([hours_input], [predicted_proba_sklearn], c='red', s=200,
 
 **Giải thích:**
 
--   **Marker `'*'`:** Hình ngôi sao (nổi bật)
--   **`s=200`:** Kích thước lớn
--   **`zorder=4`:** Layer cao nhất (vẽ trên cùng)
--   **2 điểm:**
-    -   Manual: Xanh
-    -   Sklearn: Đỏ
--   **Kỳ vọng:** 2 điểm rất gần nhau (gần như trùng)
+Marker `'*'` tạo hình ngôi sao nổi bật, với `s=200` là kích thước lớn. Tham số `zorder=4` đặt layer cao nhất để vẽ trên cùng. Có 2 điểm: Manual màu xanh và Sklearn màu đỏ. Kỳ vọng là 2 điểm rất gần nhau (gần như trùng).
 
 ---
 
@@ -787,10 +678,7 @@ ax1.set_ylim(-0.1, 1.1)
 
 **Giải thích:**
 
--   **Title:** 2 dòng với `\n`
--   **Legend:** Góc trên trái
--   **Grid:** Độ trong suốt 0.3
--   **ylim:** -0.1 đến 1.1 (hơi rộng hơn 0-1)
+Title được chia làm 2 dòng với `\n`. Legend đặt ở góc trên trái. Grid có độ trong suốt 0.3 để không quá nổi. Tham số ylim được đặt từ -0.1 đến 1.1 (hơi rộng hơn khoảng 0-1 thông thường).
 
 ---
 
@@ -813,23 +701,22 @@ bars2 = ax2.bar(x_pos + width/2, sklearn_values, width, label='Sklearn', color='
 
 ##### **Chuẩn bị dữ liệu**
 
-**Categories:**
+Thiết lập **Categories:**
 
 ```python
 categories = ['Hệ số góc\n(m/coef)', 'Hệ số chặn\n(b/intercept)', f'Xác suất đậu\n({hours_input}h)']
 ```
 
--   3 nhóm so sánh
--   `\n`: Xuống dòng trong label (đẹp hơn)
+List này chứa 3 nhóm so sánh, với `\n` để xuống dòng trong label cho đẹp hơn.
 
-**Values:**
+Thiết lập **Values:**
 
 ```python
 manual_values = [m, b, predicted_score_manual]
 sklearn_values = [model.coef_[0][0], model.intercept_[0], predicted_proba_sklearn]
 ```
 
--   2 list tương ứng
+Hai list này chứa giá trị tương ứng của từng mô hình.
 
 ##### **Tạo vị trí cột**
 
@@ -838,8 +725,7 @@ x_pos = np.arange(len(categories))  # [0, 1, 2]
 width = 0.35
 ```
 
--   `x_pos`: Vị trí trung tâm mỗi nhóm
--   `width`: Độ rộng mỗi cột = 0.35
+Biến `x_pos` là vị trí trung tâm mỗi nhóm, còn `width` là độ rộng mỗi cột bằng 0.35.
 
 ##### **Vẽ grouped bar chart**
 
@@ -848,22 +734,7 @@ bars1 = ax2.bar(x_pos - width/2, manual_values, width, ...)
 bars2 = ax2.bar(x_pos + width/2, sklearn_values, width, ...)
 ```
 
-**Phân tích:**
-
--   **`x_pos - width/2`:** Dịch sang trái nửa width
-
-    -   Vị trí: [-0.175, 0.825, 1.825]
-
--   **`x_pos + width/2`:** Dịch sang phải nửa width
-    -   Vị trí: [0.175, 1.175, 2.175]
-
-**Kết quả:** 2 cột đứng sát nhau, tạo nhóm
-
-**Màu sắc:**
-
--   Manual: `'skyblue'` (xanh nhạt)
--   Sklearn: `'salmon'` (đỏ nhạt)
--   Viền đen cho rõ
+Phân tích: biểu thức `x_pos - width/2` dịch sang trái nửa width, cho vị trí [-0.175, 0.825, 1.825]. Biểu thức `x_pos + width/2` dịch sang phải nửa width, cho vị trí [0.175, 1.175, 2.175]. Kết quả là 2 cột đứng sát nhau, tạo nhóm. Về màu sắc, Manual dùng `'skyblue'` (xanh nhạt), Sklearn dùng `'salmon'` (đỏ nhạt), cả hai đều có viền đen cho rõ ràng.
 
 ---
 
@@ -881,19 +752,7 @@ for bars in [bars1, bars2]:
 
 **Giải thích:**
 
--   **Duyệt 2 nhóm cột:** bars1, bars2
--   **Duyệt từng cột:** bar in bars
--   **Lấy chiều cao:** `bar.get_height()` = giá trị
--   **Vẽ text:**
-    -   **Vị trí X:** Trung tâm cột
-        -   `bar.get_x()`: Tọa độ trái cột
-        -   `+ bar.get_width()/2.`: Cộng nửa width → trung tâm
-    -   **Vị trí Y:** `height` (đỉnh cột)
-    -   **Text:** Giá trị với 3 chữ số thập phân
-    -   **`ha='center'`:** Horizontal alignment = center
-    -   **`va='bottom'`:** Vertical alignment = bottom (đặt dưới chữ)
-
-**Kết quả:** Mỗi cột có số ở trên đỉnh
+Vòng lặp duyệt qua 2 nhóm cột (bars1, bars2), sau đó duyệt từng cột trong nhóm. Lấy chiều cao bằng `bar.get_height()` để đại diện cho giá trị. Tiếp theo vẽ text với các thiết lập: **Vị trí X** là trung tâm cột được tính bằng `bar.get_x()` (tọa độ trái cột) cộng `bar.get_width()/2.` (nửa width). **Vị trí Y** là `height` (đỉnh cột). **Text** là giá trị với 3 chữ số thập phân. Các tham số `ha='center'` là Horizontal alignment = center, và `va='bottom'` là Vertical alignment = bottom (đặt dưới chữ). Kết quả là mỗi cột có số ở trên đỉnh.
 
 ---
 
@@ -911,10 +770,7 @@ ax2.axhline(y=0, color='black', linewidth=0.8)
 
 **Giải thích:**
 
--   **`set_xticks(x_pos)`:** Đặt vị trí tick = [0, 1, 2]
--   **`set_xticklabels(categories)`:** Gắn nhãn cho tick
--   **`grid(axis='y')`:** Chỉ vẽ grid ngang (không dọc)
--   **`axhline(y=0)`:** Vẽ trục x tại y=0 (baseline)
+Hàm `set_xticks(x_pos)` đặt vị trí tick bằng [0, 1, 2]. Hàm `set_xticklabels(categories)` gắn nhãn cho tick. Tham số `grid(axis='y')` chỉ vẽ grid ngang (không dọc). Hàm `axhline(y=0)` vẽ trục x tại y=0 (baseline).
 
 ---
 
@@ -1003,18 +859,11 @@ Có thể thấy sự khác biệt giữa hai mô hình do:
 
 **Chênh lệch nhỏ (~5-6%):**
 
--   Manual: m=2.35, b=-4.57
--   Sklearn: m=2.40, b=-4.61
--   **Nguyên nhân:**
-    -   LBFGS hội tụ tốt hơn GD
-    -   Sklearn có thể đã hội tụ sớm
-    -   Khởi tạo khác nhau
+Kết quả cho thấy Manual có m=2.35, b=-4.57 trong khi Sklearn có m=2.40, b=-4.61. Nguyên nhân của sự khác biệt này là LBFGS hội tụ tốt hơn GD, Sklearn có thể đã hội tụ sớm, và khởi tạo khác nhau.
 
 **Ý nghĩa:**
 
--   **Cùng hướng:** Cả 2 đều học được xu hướng tăng (m > 0)
--   **Cùng dịch:** Cả 2 đều có b âm (dịch sang phải)
--   **Consistency:** Implementation cơ bản đúng!
+Cả hai mô hình đều học được xu hướng tăng (**Cùng hướng:** m > 0). Cả hai đều có b âm (**Cùng dịch:** dịch sang phải). Điều này chứng tỏ **Consistency:** Implementation cơ bản đúng!
 
 ---
 
@@ -1022,15 +871,11 @@ Có thể thấy sự khác biệt giữa hai mô hình do:
 
 **Chênh lệch rất nhỏ (<1%):**
 
--   Manual: 78.54%
--   Sklearn: 79.12%
--   **Chênh lệch:** 0.58%
+Manual cho 78.54% trong khi Sklearn cho 79.12%, chênh lệch chỉ 0.58%.
 
 **Ý nghĩa:**
 
--   **Gần như giống nhau:** Cả 2 mô hình dự đoán tương tự
--   **Cùng kết luận:** Đều dự đoán ĐẬU
--   **Tin cậy:** Implementation manual là đáng tin cậy
+Hai mô hình dự đoán tương tự (**Gần như giống nhau**). Cả hai đều dự đoán ĐẬU (**Cùng kết luận**). Điều này chứng tỏ Implementation manual là đáng tin cậy (**Tin cậy**).
 
 ---
 
@@ -1038,9 +883,7 @@ Có thể thấy sự khác biệt giữa hai mô hình do:
 
 **GIỐNG NHAU ✓**
 
--   Cả 2 đều kết luận ĐẬU
--   **Quan trọng nhất:** Quyết định cuối cùng giống nhau
--   **Thành công:** Mô hình tự xây dựng hoạt động đúng!
+Cả 2 đều kết luận ĐẬU. Quan trọng nhất là quyết định cuối cùng giống nhau. Đây là thành công: Mô hình tự xây dựng hoạt động đúng!
 
 ---
 
@@ -1048,15 +891,11 @@ Có thể thấy sự khác biệt giữa hai mô hình do:
 
 **Quan sát:**
 
--   **2 đường sigmoid:** Gần như trùng nhau
--   **Điểm dữ liệu:** Phân bố rõ ràng (đỏ trái, xanh phải)
--   **2 ngôi sao (2.8h):** Rất gần nhau (~79%)
--   **Ngưỡng 0.5:** 2 đường đều vượt qua tại ~2.0-2.2 giờ
+Hai đường sigmoid gần như trùng nhau. Các điểm dữ liệu phân bố rõ ràng (đỏ bên trái, xanh bên phải). Hai ngôi sao ở 2.8h rất gần nhau (~79%). Ngưỡng 0.5 cho thấy 2 đường đều vượt qua tại khoảng 2.0-2.2 giờ.
 
 **Kết luận:**
 
--   Mô hình manual **hoạt động tốt**
--   Decision boundary **hợp lý**
+Mô hình manual hoạt động tốt và decision boundary hợp lý.
 
 ---
 
@@ -1064,27 +903,14 @@ Có thể thấy sự khác biệt giữa hai mô hình do:
 
 **Quan sát:**
 
-**Nhóm 1 - Hệ số góc:**
+**Nhóm 1 - Hệ số góc:** Manual ~2.35 (xanh) và Sklearn ~2.40 (đỏ) có chiều cao gần bằng nhau.
 
--   Manual: ~2.35 (xanh)
--   Sklearn: ~2.40 (đỏ)
--   **Cao gần bằng nhau**
+**Nhóm 2 - Hệ số chặn:** Manual ~-4.57 (xanh, âm) và Sklearn ~-4.61 (đỏ, âm), cả 2 đều âm và gần nhau.
 
-**Nhóm 2 - Hệ số chặn:**
-
--   Manual: ~-4.57 (xanh, âm)
--   Sklearn: ~-4.61 (đỏ, âm)
--   **Cả 2 đều âm, gần nhau**
-
-**Nhóm 3 - Xác suất đậu:**
-
--   Manual: ~0.785 (xanh)
--   Sklearn: ~0.791 (đỏ)
--   **Gần như bằng nhau**
+**Nhóm 3 - Xác suất đậu:** Manual ~0.785 (xanh) và Sklearn ~0.791 (đỏ) gần như bằng nhau.
 
 **Kết luận:**
 
--   **Visual confirmation:** Mắt thường thấy 2 cột gần nhau
--   **Chênh lệch nhỏ:** Acceptable difference
+Mắt thường thấy 2 cột gần nhau (Visual confirmation). Chênh lệch nhỏ là chấp nhận được (Acceptable difference).
 
 ---

@@ -49,8 +49,7 @@ from logistic_regression_utils import (
 
 #### **Import sys và os**
 
--   **`sys`:** Module hệ thống Python, dùng để thao tác với môi trường runtime
--   **`os`:** Module hệ điều hành, dùng để làm việc với file và thư mục
+Đoạn code bắt đầu bằng việc import hai module hệ thống quan trọng. Module `sys` cung cấp các chức năng để thao tác với môi trường runtime của Python, trong khi module `os` cho phép làm việc với hệ điều hành, đặc biệt là các thao tác liên quan đến file và thư mục.
 
 #### **Thêm đường dẫn module**
 
@@ -60,32 +59,13 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 **Phân tích từng bước:**
 
-1. **`__file__`:** Biến đặc biệt chứa đường dẫn file Python hiện tại
+Quá trình xử lý đường dẫn diễn ra qua năm bước tuần tự. Bước đầu tiên, biến đặc biệt `__file__` chứa đường dẫn của file Python hiện tại, ví dụ như `d:/UTH-AI-assignments/.../Exercise 2/Question a/ex2a_logistic_regression.py`. Tiếp theo, hàm `os.path.abspath(__file__)` chuyển đổi đường dẫn này thành dạng tuyệt đối, đảm bảo đường dẫn đầy đủ và không phụ thuộc vào thư mục làm việc hiện tại.
 
-    - Ví dụ: `d:/UTH-AI-assignments/.../Exercise 2/Question a/ex2a_logistic_regression.py`
-
-2. **`os.path.abspath(__file__)`:** Chuyển thành đường dẫn tuyệt đối
-
-    - Đảm bảo đường dẫn đầy đủ, không phụ thuộc thư mục làm việc
-
-3. **`os.path.dirname(...)`:** Lấy thư mục cha (lần 1)
-
-    - Kết quả: `d:/UTH-AI-assignments/.../Exercise 2/Question a/`
-
-4. **`os.path.dirname(...)` (lần 2):** Lấy thư mục cha tiếp (lần 2)
-
-    - Kết quả: `d:/UTH-AI-assignments/.../Exercise 2/`
-
-5. **`sys.path.insert(0, ...)`:** Thêm đường dẫn vào **đầu** danh sách tìm kiếm module
-    - `0`: Vị trí đầu tiên (ưu tiên cao nhất)
-    - Cho phép Python tìm thấy file `logistic_regression_utils.py` ở thư mục cha
+Bước thứ ba áp dụng `os.path.dirname(...)` lần đầu để lấy thư mục cha, cho kết quả `d:/UTH-AI-assignments/.../Exercise 2/Question a/`. Sau đó, áp dụng `os.path.dirname(...)` lần thứ hai để lên thêm một cấp nữa, thu được `d:/UTH-AI-assignments/.../Exercise 2/`. Cuối cùng, `sys.path.insert(0, ...)` thêm đường dẫn này vào vị trí đầu tiên (index 0) của danh sách tìm kiếm module, tạo ưu tiên cao nhất. Điều này cho phép Python tìm thấy file `logistic_regression_utils.py` nằm ở thư mục cha.
 
 **Tại sao cần làm thế này?**
 
--   File `logistic_regression_utils.py` nằm ở thư mục `Exercise 2/` (cha)
--   File hiện tại nằm ở `Exercise 2/Question a/` (con)
--   Python mặc định chỉ tìm module trong thư mục hiện tại
--   Phải thêm đường dẫn thủ công để import từ thư mục cha
+Lý do cần thao tác này xuất phát từ cấu trúc thư mục của project. File `logistic_regression_utils.py` nằm ở thư mục cha `Exercise 2/`, trong khi file hiện tại nằm ở thư mục con `Exercise 2/Question a/`. Do Python mặc định chỉ tìm kiếm module trong thư mục hiện tại và các thư mục trong `sys.path`, nên cần phải thêm đường dẫn thủ công để có thể import từ thư mục cha.
 
 **Cấu trúc thư mục:**
 
@@ -108,15 +88,11 @@ from logistic_regression_utils import (
 
 **Giải thích:**
 
--   **`DATASET`:** Hằng số chứa dữ liệu training
--   **`get_prediction`:** Hàm dự đoán xác suất cho input mới
--   **`train_logistic_regression`:** Hàm huấn luyện mô hình
+Đoạn import này lấy ba thành phần quan trọng từ module tiện ích. Biến `DATASET` là hằng số chứa toàn bộ dữ liệu training gồm 8 cặp giá trị (hours, pass). Hàm `get_prediction` thực hiện dự đoán xác suất cho các giá trị input mới dựa trên tham số đã học. Còn hàm `train_logistic_regression` chịu trách nhiệm huấn luyện mô hình với thuật toán Gradient Descent.
 
 **Lợi ích của cách tổ chức này:**
 
--   ✓ **Tái sử dụng code:** Các hàm dùng chung cho Question a và b
--   ✓ **Dễ bảo trì:** Sửa logic ở 1 chỗ, cả 2 file đều được cập nhật
--   ✓ **Code sạch:** File chính chỉ tập trung vào logic cụ thể
+Việc tổ chức code theo cách này mang lại nhiều ưu điểm quan trọng. Thứ nhất, các hàm được tái sử dụng cho cả Question A và Question B, tránh việc viết lại code trùng lặp. Thứ hai, khi cần sửa đổi logic, chỉ cần thay đổi ở một chỗ trong file utils, và cả hai file sử dụng đều được cập nhật tự động. Cuối cùng, file chính trở nên sạch sẽ và tập trung vào logic cụ thể của từng câu hỏi.
 
 ---
 
@@ -198,32 +174,25 @@ predicted_score = get_prediction(m, b, hours_input)
 
 **Giải thích:**
 
--   **`hours_input = 2.8`:** Sinh viên học 2.8 giờ (đề bài yêu cầu)
--   **`get_prediction(m, b, hours_input)`:** Gọi hàm dự đoán
-    -   Truyền vào:
-        -   `m, b`: Tham số đã học được
-        -   `hours_input`: Giá trị x cần dự đoán
-    -   Trả về: Xác suất đậu (giá trị từ 0 đến 1)
+Sau khi huấn luyện xong, biến `hours_input` được gán giá trị 2.8, thể hiện trường hợp sinh viên học 2.8 giờ theo yêu cầu của đề bài. Tiếp đó, hàm `get_prediction(m, b, hours_input)` được gọi để thực hiện dự đoán. Hàm này nhận ba tham số đầu vào: các tham số m và b vừa học được từ quá trình training, cùng với giá trị x cần dự đoán (2.8 giờ). Kết quả trả về là xác suất đậu nằm trong khoảng từ 0 đến 1.
 
 **Công thức bên trong hàm:**
 
-```python
-def get_prediction(m, b, x):
-    y = m * x + b
-    return 1 / (1 + math.exp(-y))
-```
+Quá trình tính toán trong hàm `get_prediction` diễn ra qua hai bước. Bước đầu tiên tính giá trị tuyến tính:
 
-Với m, b đã học và x = 2.8:
+$$z = m \times x + b$$
 
-1. Tính z = m × 2.8 + b
-2. Tính sigmoid(z) = 1 / (1 + e^(-z))
+Sau đó áp dụng hàm sigmoid để chuyển đổi z thành xác suất:
 
-**Ví dụ với m=2.0, b=-4.0:**
+$$\sigma(z) = \frac{1}{1 + e^{-z}}$$
 
--   z = 2.0 × 2.8 + (-4.0) = 5.6 - 4.0 = 1.6
--   sigmoid(1.6) = 1 / (1 + e^(-1.6)) ≈ 0.832
+Với các tham số m, b đã học và x = 2.8, ví dụ nếu m=2.0 và b=-4.0, quá trình tính toán như sau:
 
-→ Xác suất đậu ≈ 83.2%
+$$z = 2.0 \times 2.8 + (-4.0) = 5.6 - 4.0 = 1.6$$
+
+$$\sigma(1.6) = \frac{1}{1 + e^{-1.6}} \approx 0.832$$
+
+Kết quả này nghĩa là xác suất đậu xấp xỉ 83.2%.
 
 ---
 
@@ -252,29 +221,11 @@ print("-"*40 + "\n")
 print("\n" + "-"*40)
 ```
 
--   `"\n"`: Xuống dòng
--   `"-"*40`: In 40 dấu gạch ngang (separator đẹp mắt)
+Lệnh này tạo một dòng phân cách bằng cách xuống dòng (`"\n"`) và sau đó in 40 dấu gạch ngang. Kết quả là một separator đẹp mắt giúp tách biệt phần kết quả khỏi các phần khác.
 
 #### **In kết quả dự đoán**
 
-```python
-print(f"Kết quả dự đoán cho {hours_input} giờ học:")
-```
-
--   In số giờ input (2.8)
-
-```python
-print(f"Điểm số dự đoán: {predicted_score:.4f}")
-```
-
--   In xác suất với 4 chữ số thập phân (ví dụ: 0.8324)
-
-```python
-print(f"Xác suất đậu: {predicted_score:.4f} ({predicted_score*100:.2f}%)")
-```
-
--   In cả dạng thập phân (0.8324) và phần trăm (83.24%)
--   `.2f`: 2 chữ số thập phân cho phần trăm
+Phần này hiển thị kết quả dự đoán dưới nhiều dạng khác nhau. Lệnh `print(f"Kết quả dự đoán cho {hours_input} giờ học:")` in ra số giờ input (2.8) để người dùng biết đang dự đoán cho trường hợp nào. Tiếp theo, `print(f"Điểm số dự đoán: {predicted_score:.4f}")` in xác suất với 4 chữ số thập phân (ví dụ 0.8324). Cuối cùng, lệnh `print(f"Xác suất đậu: {predicted_score:.4f} ({predicted_score*100:.2f}%)")` hiển thị cả dạng thập phân (0.8324) và dạng phần trăm (83.24%), trong đó `.2f` format số phần trăm với 2 chữ số thập phân.
 
 #### **Phân loại (Classification)**
 
@@ -299,9 +250,7 @@ else:
 
 **Có thể điều chỉnh threshold:**
 
--   Nếu muốn "cẩn thận hơn" → threshold = 0.7 (phải rất chắc mới kết luận đậu)
--   Nếu muốn "dễ dãi hơn" → threshold = 0.3 (dễ kết luận đậu)
--   Trade-off giữa Precision và Recall
+Ngưỡng quyết định có thể được điều chỉnh tùy theo mục đích sử dụng. Nếu cần "cẩn thận hơn", có thể đặt threshold = 0.7 để chỉ kết luận đậu khi rất chắc chắn. Ngược lại, nếu muốn "dễ dãi hơn", có thể đặt threshold = 0.3 để dễ dàng kết luận đậu hơn. Tuy nhiên, việc điều chỉnh này tạo ra trade-off giữa Precision và Recall cần cân nhắc.
 
 #### **Kết thúc**
 
@@ -309,8 +258,7 @@ else:
 print("-"*40 + "\n")
 ```
 
--   In separator đóng
--   Xuống dòng để thoáng
+Dòng code này in separator đóng và xuống dòng để kết quả output trông thoáng mắt hơn.
 
 ---
 
@@ -335,17 +283,11 @@ DATASET = [
 
 **Giải thích:**
 
--   **Danh sách 2D:** Mỗi phần tử là `[hours, pass]`
--   **8 mẫu dữ liệu:**
-    -   4 mẫu rớt (0.5-2.0 giờ → y=0)
-    -   4 mẫu đậu (2.5-4.0 giờ → y=1)
+Đây là một danh sách 2D trong đó mỗi phần tử là `[hours, pass]` đại diện cho một mẫu dữ liệu. Dataset chứa 8 mẫu với 4 mẫu rớt (từ 0.5 đến 2.0 giờ với y=0) và 4 mẫu đậu (từ 2.5 đến 4.0 giờ với y=1).
 
 **Phân tích dataset:**
 
--   **Dữ liệu cân bằng:** 50% đậu, 50% rớt
--   **Phân chia rõ ràng:** Có khoảng trống giữa 2.0 và 2.5
--   **Tuyến tính khá tốt:** Có thể vẽ đường phân chia rõ ràng
--   **Decision boundary dự kiến:** Khoảng 2.2-2.3 giờ
+Dataset này có dữ liệu cân bằng với 50% đậu và 50% rớt. Đặc điểm nổi bật là phân chia rõ ràng với khoảng trống giữa 2.0 và 2.5 giờ, do đó có thể vẽ đường phân chia khá tuyến tính. Decision boundary dự kiến sẽ nằm khoảng 2.2-2.3 giờ.
 
 ---
 
@@ -360,23 +302,27 @@ def get_prediction(m, b, x):
 
 **Giải thích:**
 
-Hàm này thực hiện **forward propagation** (truyền tiến):
+Hàm này thực hiện **forward propagation** (truyền tiến) qua hai bước chính. Đầu tiên, tính giá trị tuyến tính:
 
-1. **Tính giá trị tuyến tính:**
+```python
+y = m * x + b
+```
 
-    ```python
-    y = m * x + b
-    ```
+Biến `y` ở đây thực ra là `z` (pre-activation), đại diện cho phương trình đường thẳng:
 
-    - `y` ở đây thực ra là `z` (pre-activation)
-    - Phương trình đường thẳng: $z = mx + b$
+$$z = mx + b$$
 
-2. **Áp dụng sigmoid:**
-    ```python
-    return 1 / (1 + math.exp(-y))
-    ```
-    - $\sigma(z) = \frac{1}{1 + e^{-z}}$
-    - Chuyển z thành xác suất (0, 1)
+Tiếp theo, áp dụng sigmoid để chuyển đổi:
+
+```python
+return 1 / (1 + math.exp(-y))
+```
+
+Công thức sigmoid:
+
+$$\sigma(z) = \frac{1}{1 + e^{-z}}$$
+
+Hàm này chuyển giá trị z thành xác suất trong khoảng (0, 1).
 
 **Ví dụ sử dụng:**
 
@@ -404,52 +350,45 @@ def get_cost(y, y_hat):
 
 **Giải thích:**
 
-Hàm tính **Binary Cross-Entropy Loss** - giống Exercise 1 nhưng implement khác.
+Hàm tính **Binary Cross-Entropy Loss** tương tự Exercise 1 nhưng với cách implement khác.
 
 #### **Tham số:**
 
--   **`y`:** List các nhãn thực tế `[0, 0, 0, 0, 1, 1, 1, 1]`
--   **`y_hat`:** List các xác suất dự đoán `[0.1, 0.2, 0.3, 0.4, 0.6, 0.7, 0.8, 0.9]`
+Tham số **`y`** là list các nhãn thực tế như `[0, 0, 0, 0, 1, 1, 1, 1]`, trong khi **`y_hat`** là list các xác suất dự đoán như `[0.1, 0.2, 0.3, 0.4, 0.6, 0.7, 0.8, 0.9]`.
 
 #### **Cách tính:**
 
-1. **Đếm số mẫu:**
+Đầu tiên, đếm số mẫu:
 
-    ```python
-    k = len(y)
-    ```
+```python
+k = len(y)
+```
 
-    - k = 8 (số mẫu trong dataset)
+Biến k sẽ bằng 8 (số mẫu trong dataset). Tiếp theo, khởi tạo tổng cost:
 
-2. **Khởi tạo tổng cost:**
+```python
+total_cost = 0.0
+```
 
-    ```python
-    total_cost = 0.0
-    ```
+Sau đó duyệt từng cặp (yi, y_hat_i):
 
-3. **Duyệt từng cặp (yi, y_hat_i):**
+```python
+for yi, y_hat_i in zip(y, y_hat):
+```
 
-    ```python
-    for yi, y_hat_i in zip(y, y_hat):
-    ```
+Hàm `zip(y, y_hat)` ghép từng cặp tương ứng, ví dụ (0, 0.1), (0, 0.2), ..., (1, 0.9). Trong mỗi vòng lặp, cộng dồn loss:
 
-    - `zip(y, y_hat)`: Ghép từng cặp tương ứng
-    - Ví dụ: (0, 0.1), (0, 0.2), ..., (1, 0.9)
+```python
+total_cost += -(yi * math.log(y_hat_i) + (1 - yi) * math.log(1 - y_hat_i))
+```
 
-4. **Cộng dồn loss:**
+Nếu yi = 1 thì chỉ tính `-log(y_hat_i)`, còn nếu yi = 0 thì chỉ tính `-log(1 - y_hat_i)`. Cuối cùng, lấy trung bình:
 
-    ```python
-    total_cost += -(yi * math.log(y_hat_i) + (1 - yi) * math.log(1 - y_hat_i))
-    ```
+```python
+return total_cost / k
+```
 
-    - **Nếu yi = 1:** Chỉ tính `-log(y_hat_i)`
-    - **Nếu yi = 0:** Chỉ tính `-log(1 - y_hat_i)`
-
-5. **Trung bình:**
-    ```python
-    return total_cost / k
-    ```
-    - Chia cho k để lấy trung bình
+Kết quả được chia cho k để lấy giá trị trung bình.
 
 **So sánh với Exercise 1:**
 
@@ -477,51 +416,37 @@ def get_gradients(m, b, x, y, y_hat):
 
 **Giải thích:**
 
-Hàm tính **gradient** (đạo hàm) của Cost function - giống Exercise 1.
+Hàm tính **gradient** (đạo hàm) của Cost function tương tự Exercise 1.
 
 #### **Tham số:**
 
--   **`m, b`:** Tham số hiện tại (không dùng trong hàm này, chỉ để tương thích)
--   **`x`:** List giá trị features `[0.5, 1.0, 1.5, ..., 4.0]`
--   **`y`:** List nhãn thực tế `[0, 0, 0, ..., 1]`
--   **`y_hat`:** List xác suất dự đoán `[h1, h2, ..., h8]`
+Các tham số **`m, b`** là tham số hiện tại (không dùng trong hàm này, chỉ để tương thích signature). Tham số **`x`** là list giá trị features như `[0.5, 1.0, 1.5, ..., 4.0]`, **`y`** là list nhãn thực tế `[0, 0, 0, ..., 1]`, và **`y_hat`** là list xác suất dự đoán `[h1, h2, ..., h8]`.
 
 #### **Cách tính:**
 
-1. **Gradient của m (hệ số góc):**
+Đầu tiên, tính gradient của m (hệ số góc):
 
-    ```python
-    dm = (1 / k) * sum((y_hat_i - yi) * xi for y_hat_i, yi, xi in zip(y_hat, y, x))
-    ```
+```python
+dm = (1 / k) * sum((y_hat_i - yi) * xi for y_hat_i, yi, xi in zip(y_hat, y, x))
+```
 
-    **Công thức toán học:**
-    $$\frac{\partial J}{\partial m} = \frac{1}{k}\sum_{i=1}^{k}(h_i - y_i) \cdot x_i$$
+Công thức toán học:
 
-    **Phân tích:**
+$$\frac{\partial J}{\partial m} = \frac{1}{k}\sum_{i=1}^{k}(h_i - y_i) \cdot x_i$$
 
-    - `(y_hat_i - yi)`: Sai số tại điểm thứ i
-    - `* xi`: Nhân với feature để tính weighted error
-    - `sum(...)`: Tổng trên tất cả điểm
-    - `(1 / k) *`: Trung bình
+Trong công thức, `(y_hat_i - yi)` là sai số tại điểm thứ i, sau đó nhân với `xi` để tính weighted error. Hàm `sum(...)` tính tổng trên tất cả điểm, rồi nhân với `(1 / k)` để lấy trung bình. Generator expression `for y_hat_i, yi, xi in zip(y_hat, y, x)` duyệt qua 3 list cùng lúc một cách Pythonic và gọn hơn vòng for thông thường.
 
-    **Generator expression:**
+Tiếp theo, tính gradient của b (hệ số chặn):
 
-    - `for y_hat_i, yi, xi in zip(y_hat, y, x)`: Duyệt qua 3 list cùng lúc
-    - Pythonic và gọn hơn vòng for thông thường
+```python
+db = (1 / k) * sum(y_hat_i - yi for y_hat_i, yi in zip(y_hat, y))
+```
 
-2. **Gradient của b (hệ số chặn):**
+Công thức toán học:
 
-    ```python
-    db = (1 / k) * sum(y_hat_i - yi for y_hat_i, yi in zip(y_hat, y))
-    ```
+$$\frac{\partial J}{\partial b} = \frac{1}{k}\sum_{i=1}^{k}(h_i - y_i)$$
 
-    **Công thức toán học:**
-    $$\frac{\partial J}{\partial b} = \frac{1}{k}\sum_{i=1}^{k}(h_i - y_i)$$
-
-    **Phân tích:**
-
-    - Giống dm nhưng **không nhân** với xi
-    - Vì đạo hàm của b là 1
+Cách tính tương tự dm nhưng không nhân với xi, vì đạo hàm của b là 1.
 
 **Ví dụ tính dm:**
 
@@ -552,39 +477,31 @@ Hàm tính **accuracy** (độ chính xác) của mô hình.
 
 #### **Cách hoạt động:**
 
-1. **Chuyển xác suất thành nhãn:**
+Đầu tiên, chuyển xác suất thành nhãn:
 
-    ```python
-    1 if y_hat_i >= 0.5 else 0
-    ```
+```python
+1 if y_hat_i >= 0.5 else 0
+```
 
-    - Nếu y_hat_i ≥ 0.5 → dự đoán 1 (ĐẬU)
-    - Ngược lại → dự đoán 0 (RỚT)
+Nếu y_hat_i ≥ 0.5 thì dự đoán 1 (ĐẬU), ngược lại dự đoán 0 (RỚT). Tiếp theo, so sánh với nhãn thực:
 
-2. **So sánh với nhãn thực:**
+```python
+(... == yi)
+```
 
-    ```python
-    (... == yi)
-    ```
+Kết quả trả về True nếu dự đoán đúng, False nếu dự đoán sai. Sau đó đếm số dự đoán đúng:
 
-    - True nếu dự đoán đúng
-    - False nếu dự đoán sai
+```python
+correct_predictions = sum(...)
+```
 
-3. **Đếm số dự đoán đúng:**
+Hàm `sum` trên boolean cho True=1 và False=0, do đó kết quả là tổng số dự đoán đúng. Cuối cùng, tính tỷ lệ:
 
-    ```python
-    correct_predictions = sum(...)
-    ```
+```python
+return correct_predictions / len(y)
+```
 
-    - `sum` trên boolean: True=1, False=0
-    - Kết quả: Tổng số dự đoán đúng
-
-4. **Tính tỷ lệ:**
-    ```python
-    return correct_predictions / len(y)
-    ```
-    - Số đúng / Tổng số mẫu
-    - Kết quả từ 0.0 (0%) đến 1.0 (100%)
+Kết quả là số đúng chia cho tổng số mẫu, cho giá trị từ 0.0 (0%) đến 1.0 (100%).
 
 **Ví dụ:**
 
@@ -636,14 +553,11 @@ def train_logistic_regression(dataset=DATASET, m_init=1.0, b_init=-1.0, iteratio
 
 **Giải thích:**
 
-Đây là **hàm chính** thực hiện thuật toán Gradient Descent - trái tim của bài toán.
+Đây là **hàm chính** thực hiện thuật toán Gradient Descent, đóng vai trò trái tim của bài toán.
 
 #### **Tham số:**
 
--   **`dataset`:** Dữ liệu training (mặc định DATASET)
--   **`m_init, b_init`:** Giá trị khởi tạo (mặc định 1.0, -1.0)
--   **`iterations`:** Số vòng lặp (mặc định 10)
--   **`learning_rate`:** Tốc độ học (mặc định 1.0)
+Hàm nhận tham số **`dataset`** là dữ liệu training (mặc định DATASET), **`m_init, b_init`** là giá trị khởi tạo (mặc định 1.0, -1.0), **`iterations`** là số vòng lặp (mặc định 10), và **`learning_rate`** là tốc độ học (mặc định 1.0).
 
 #### **Bước 1: Khởi tạo tham số**
 
@@ -652,7 +566,7 @@ m = m_init
 b = b_init
 ```
 
--   Gán giá trị ban đầu cho m, b
+Đoạn code này gán giá trị ban đầu cho m và b.
 
 #### **Bước 2: Tách dữ liệu**
 
@@ -661,12 +575,7 @@ x = [row[0] for row in dataset]
 y = [row[1] for row in dataset]
 ```
 
-**List comprehension:**
-
--   `row[0]`: Cột đầu tiên (hours)
--   `row[1]`: Cột thứ hai (pass)
-
-**Kết quả:**
+Sử dụng list comprehension để trích xuất dữ liệu. Biểu thức `row[0]` lấy cột đầu tiên (hours), còn `row[1]` lấy cột thứ hai (pass). Kết quả:
 
 ```python
 x = [0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0]
@@ -679,7 +588,7 @@ y = [0, 0, 0, 0, 1, 1, 1, 1]
 costs = []
 ```
 
--   Để tracking quá trình học
+List này phục vụ cho việc tracking quá trình học.
 
 #### **Bước 4: Vòng lặp training**
 
@@ -687,46 +596,37 @@ costs = []
 for it in range(iterations):
 ```
 
--   Lặp `iterations` lần (10 lần)
+Vòng lặp này thực hiện `iterations` lần (10 lần).
 
 **Bên trong mỗi iteration:**
 
-**4.1. Forward propagation:**
+Đầu tiên là **4.1. Forward propagation:**
 
 ```python
 y_hat = [get_prediction(m, b, xi) for xi in x]
 ```
 
--   Tính xác suất dự đoán cho từng điểm
--   `y_hat` là list 8 giá trị xác suất
-
-**4.2. Tính cost:**
+Bước này tính xác suất dự đoán cho từng điểm, kết quả `y_hat` là list 8 giá trị xác suất. Tiếp theo, **4.2. Tính cost:**
 
 ```python
 cost = get_cost(y, y_hat)
 costs.append(cost)
 ```
 
--   Đánh giá chất lượng mô hình hiện tại
--   Lưu vào list
-
-**4.3. Backward propagation (tính gradient):**
+Đoạn code này đánh giá chất lượng mô hình hiện tại và lưu vào list. Sau đó thực hiện **4.3. Backward propagation (tính gradient):**
 
 ```python
 dm, db = get_gradients(m, b, x, y, y_hat)
 ```
 
--   Tính đạo hàm để biết hướng đi
-
-**4.4. Cập nhật tham số:**
+Bước này tính đạo hàm để biết hướng đi. Cuối cùng là **4.4. Cập nhật tham số:**
 
 ```python
 m -= learning_rate * dm
 b -= learning_rate * db
 ```
 
--   Gradient Descent step
--   Đi ngược hướng gradient để giảm cost
+Đây là Gradient Descent step, đi ngược hướng gradient để giảm cost.
 
 #### **Bước 5: Trả về kết quả**
 
@@ -734,8 +634,7 @@ b -= learning_rate * db
 return m, b, costs
 ```
 
--   `m, b`: Tham số tối ưu sau training
--   `costs`: Lịch sử cost (để phân tích)
+Hàm trả về `m, b` là tham số tối ưu sau training, và `costs` là lịch sử cost để phân tích.
 
 **So sánh với Exercise 1:**
 
@@ -771,34 +670,21 @@ Xác suất đậu: 0.7854 (78.54%)
 
 **Ý nghĩa:**
 
--   Sinh viên học 2.8 giờ có xác suất đậu gần **80%**
--   Không phải 100% vì mô hình học từ dữ liệu có **uncertainty**
--   Dự đoán hợp lý vì:
-    -   2.8 giờ > 2.5 giờ (điểm đậu thấp nhất)
-    -   2.8 giờ gần 3.0 giờ (điểm đậu chắc chắn)
+Sinh viên học 2.8 giờ có xác suất đậu gần **80%**. Kết quả không phải 100% vì mô hình học từ dữ liệu có **uncertainty**. Dự đoán này là hợp lý do 2.8 giờ lớn hơn 2.5 giờ (điểm đậu thấp nhất) và gần với 3.0 giờ (điểm đậu chắc chắn).
 
 #### **2. Kết luận: ĐẬU**
 
 **Logic:**
 
--   Xác suất 0.7854 ≥ 0.5 → Phân loại vào lớp 1 (ĐẬU)
--   Mức độ tin cậy: **cao** (gần 80%, không phải 51%)
+Xác suất 0.7854 ≥ 0.5 nên được phân loại vào lớp 1 (ĐẬU). Mức độ tin cậy là **cao** vì xác suất gần 80%, không phải chỉ 51%.
 
 #### **3. Phân tích theo ngưỡng giờ học**
 
-Giả sử mô hình học được:
-
--   m ≈ 2.0, b ≈ -4.0
--   Decision boundary: m × x + b = 0
-    → x = -b/m = 4.0/2.0 = 2.0 giờ
+Giả sử mô hình học được m ≈ 2.0 và b ≈ -4.0. Decision boundary được tính khi m × x + b = 0, do đó x = -b/m = 4.0/2.0 = 2.0 giờ.
 
 **Dự đoán theo ngưỡng:**
 
--   x < 2.0 giờ: Xác suất đậu < 50% → RỚT
--   x = 2.0 giờ: Xác suất đậu = 50% → Biên giới
--   x > 2.0 giờ: Xác suất đậu > 50% → ĐẬU
-
-**2.8 giờ > 2.0 giờ** → ĐẬU (hợp lý!)
+Nếu x < 2.0 giờ thì xác suất đậu < 50% nên kết luận RỚT. Nếu x = 2.0 giờ thì xác suất đậu = 50% (biên giới). Nếu x > 2.0 giờ thì xác suất đậu > 50% nên kết luận ĐẬU. Vì **2.8 giờ > 2.0 giờ** nên kết luận ĐẬU là hợp lý!
 
 #### **4. So sánh với dữ liệu thực**
 
@@ -816,7 +702,6 @@ Giả sử mô hình học được:
 
 **Nhận xét:**
 
--   Mô hình dự đoán hợp lý với dữ liệu
--   2.8 giờ nằm giữa 2.5 (73%) và 3.0 (88%) → ~79% là hợp lý
+Mô hình dự đoán hợp lý với dữ liệu thực tế. Giá trị 2.8 giờ nằm giữa 2.5 giờ (73%) và 3.0 giờ (88%), do đó kết quả ~79% là hoàn toàn hợp lý.
 
 ---
