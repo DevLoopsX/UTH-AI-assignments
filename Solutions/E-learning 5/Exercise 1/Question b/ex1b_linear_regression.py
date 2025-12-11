@@ -86,6 +86,6 @@ plt.ylabel("Cost")
 plt.grid(True, linestyle='--', alpha=0.4)
 
 plt.tight_layout()
-plt.savefig('d:/UTH-AI-assignments/Solutions/E-learning 5/Exercise 1/Question b/result.png',
+plt.savefig('results/ex1b_gradient_descent_convergence.png',
             dpi=300, bbox_inches='tight')
 plt.show()
