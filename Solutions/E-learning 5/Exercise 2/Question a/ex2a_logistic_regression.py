@@ -47,14 +47,14 @@ costs = []
 for it in range(iterations):
 
     y_hat = [get_prediction(m, b, x_i) for x_i in x]
-    
+
     cost = get_cost(y, y_hat)
     accuracy = get_accuracy(y, y_hat)
     dm, db = get_gradients(m, b, x, y, y_hat)
-    
+
     # print(f"Iteration {it + 1}: m = {m:.4f}, b = {b:.4f}, Accuracy = {accuracy:.4f}")
-   
-    #Update
+
+    # Update
     m -= learning_rate * dm
     b -= learning_rate * db
     costs.append(cost)
@@ -72,5 +72,5 @@ if predicted_score >= 0.5:
     print("=> Kết luận: ĐẬU")
 else:
     print("=> Kết luận: RỚT")
-    
+
 print("-"*40 + "\n")
