@@ -1,68 +1,25 @@
-import math
+import sys
+import os
+# Thêm thư mục cha vào path để import module
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from logistic_regression_utils import (
+    DATASET, get_prediction, train_logistic_regression
+)
 from sklearn.linear_model import LogisticRegression
 import numpy as np
 import matplotlib.pyplot as plt
 
-# ========== DỮ LIỆU ==========
-dataset = [
-    [0.5, 0],  # 0.5 giờ học → Rớt
-    [1.0, 0],  # 1.0 giờ học → Rớt
-    [1.5, 0],  # 1.5 giờ học → Rớt
-    [2.0, 0],  # 2.0 giờ học → Rớt
-    [2.5, 1],  # 2.5 giờ học → Đậu
-    [3.0, 1],  # 3.0 giờ học → Đậu
-    [3.5, 1],  # 3.5 giờ học → Đậu
-    [4.0, 1]   # 4.0 giờ học → Đậu
-]
-
-# ========== CÁC HÀM CHO MÔ HÌNH TỰ XÂY DỰNG ==========
-
-def get_prediction(m, b, x):
-    z = m * x + b
-    return 1 / (1 + math.exp(-z))
-
-def get_cost(y, y_hat):
-    n = len(y)
-    total_cost = 0.0
-    for yi, y_hat_i in zip(y, y_hat):
-        total_cost += -(yi * math.log(y_hat_i) + (1 - yi) * math.log(1 - y_hat_i))
-    return total_cost / n
-
-def get_gradients(m, b, x, y, y_hat):
-    n = len(y)
-    dm = (1 / n) * sum((y_hat_i - yi) * xi for y_hat_i, yi, xi in zip(y_hat, y, x))
-    db = (1 / n) * sum(y_hat_i - yi for y_hat_i, yi in zip(y_hat, y))
-    return dm, db
-
 # ========== PHẦN A: MÔ HÌNH TỰ XÂY DỰNG ==========
 
-# Khởi tạo tham số
-m = 1.0
-b = -1.0
-
-# Siêu tham số
-iterations = 10
-learning_rate = 1.0
-
-# Tách dữ liệu
-x = [row[0] for row in dataset]  # Số giờ học
-y = [row[1] for row in dataset]  # Kết quả (0: rớt, 1: đậu)
-
-# Huấn luyện mô hình bằng Gradient Descent
-for it in range(iterations):
-    # Forward pass: Tính dự đoán
-    y_hat = [get_prediction(m, b, xi) for xi in x]
-
-    # Tính cost (không bắt buộc cho huấn luyện, chỉ để theo dõi)
-    cost = get_cost(y, y_hat)
-
-    # Backward pass: Tính gradient
-    dm, db = get_gradients(m, b, x, y, y_hat)
-
-    # Update parameters
-    m -= learning_rate * dm
-    b -= learning_rate * db
-
+# Huấn luyện mô hình với n = 10 iterations
+m, b, costs = train_logistic_regression(
+    dataset=DATASET,
+    m_init=1.0,
+    b_init=-1.0,
+    iterations=10,
+    learning_rate=1.0
+)
 # Dự đoán cho sinh viên học 2.8 giờ
 hours_input = 2.8
 predicted_score_manual = get_prediction(m, b, hours_input)
@@ -91,8 +48,8 @@ print("PHẦN B: KẾT QUẢ MÔ HÌNH SKLEARN")
 print("-"*60)
 
 # Chuẩn bị dữ liệu cho sklearn
-X = np.array([[row[0]] for row in dataset])  # Features (Hours)
-y_train = np.array([row[1] for row in dataset])  # Labels (Pass)
+X = np.array([[row[0]] for row in DATASET])  # Features (Hours)
+y_train = np.array([row[1] for row in DATASET])  # Labels (Pass)
 
 # Tạo và huấn luyện mô hình Logistic Regression
 model = LogisticRegression(max_iter=10, solver='lbfgs', random_state=42)
@@ -160,8 +117,8 @@ y_manual = [get_prediction(m, b, x_i) for x_i in x_plot]
 y_sklearn = [model.predict_proba([[x_i]])[0][1] for x_i in x_plot]
 
 # Vẽ dữ liệu gốc
-x_data = [row[0] for row in dataset]
-y_data = [row[1] for row in dataset]
+x_data = [row[0] for row in DATASET]
+y_data = [row[1] for row in DATASET]
 ax1.scatter(x_data, y_data, c=['red' if y==0 else 'green' for y in y_data],
             s=100, alpha=0.6, edgecolors='black', linewidth=1.5,
             label='Dữ liệu thực tế', zorder=3)
@@ -217,5 +174,4 @@ ax2.axhline(y=0, color='black', linewidth=0.8)
 
 plt.tight_layout()
 plt.savefig('results/ex2b_comparison_chart.png', dpi=300, bbox_inches='tight')
-print("📊 Biểu đồ đã được lưu vào 'results/ex2b_comparison_chart.png'")
 plt.show()
