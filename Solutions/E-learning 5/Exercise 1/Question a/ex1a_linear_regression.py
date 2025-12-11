@@ -111,7 +111,7 @@ ax2.grid(True, alpha=0.3, linestyle='--')
 # Lưu và hiển thị biểu đồ
 plt.tight_layout()
 # Lưu ý: Bạn cần đảm bảo thư mục đường dẫn tồn tại trước khi chạy lệnh savefig
-plt.savefig('d:/UTH-AI-assignments/Solutions/E-learning 5/Exercise 1/Question a/solution_a_result.png',
+plt.savefig('results/ex1a_cost_function_visualization.png',
             dpi=300, bbox_inches='tight')
 plt.show()
 
