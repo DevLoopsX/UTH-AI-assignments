@@ -283,7 +283,13 @@ Bước 3: Đếm số dự đoán đúng bằng `sum()`. Python tự động ch
 
 Bước 4: Tính tỷ lệ:
 
-$$Accuracy = \frac{\text{S\u1ed1 d\u1ef1 \u0111o\u00e1n \u0111\u00fang}}{\text{T\u1ed5ng s\u1ed1 m\u1eabu}}$$
+$$Accuracy = \frac{\text{correct\_predictions}}{\text{len(y)}}$$
+
+Hay viết theo toán học:
+
+$$Accuracy = \frac{\sum_{i=1}^{n} \mathbb{1}[\hat{y}_i = y_i]}{n}$$
+
+Trong đó $\mathbb{1}[\cdot]$ là hàm indicator (bằng 1 nếu điều kiện đúng, bằng 0 nếu sai).
 
 **Ví dụ:**
 
